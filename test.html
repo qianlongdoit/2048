@@ -34,28 +34,28 @@
 <script>
 	angular.module("myApp",[])
 			.directive("superman",function(){
-				return {
-					scope:{},
-					restrict:"AE",
-					controlller:function ($scope) {
-						$scope.abilities = [];
-						this.addStrength = function () {
-							$scope.abilities.push("strength");
-						};
-						this.addSpeed = function () {
-							$scope.abilities.push("speed");
-						};
-						this.addLight = function () {
-							$scope.abilities.push("light");
-						};
-					},
-					link:function ($scop,$element,$attrs) {
-						$element.addClass("btn btn-primary");
-						$element.bind("mouseenter",function () {
-							console.log($scope.abilities);
-						})
-					}
-				}
+                return{
+                    scope:{},
+                    restrict:'AE',
+                    controller:function($scope){
+                        $scope.abilities=[];
+                        this.addStrength=function(){
+                            $scope.abilities.push("strength");
+                        };
+                        this.addSpeed=function(){
+                            $scope.abilities.push("speed");
+                        };
+                        this.addLight=function(){
+                            $scope.abilities.push("light");
+                        };
+                    },
+                    link:function(scope,element,attrs){
+                        element.addClass('btn btn-primary');
+                        element.bind("mouseenter",function(){
+                            console.log(scope.abilities);
+                        })
+                    }
+                }
 			})
 			.directive("strength",function () {
 				return {
