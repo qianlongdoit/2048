@@ -16,72 +16,80 @@
 </style>
 </head>
 
-<body class="container">
+<body class="container" ng-controller="myCtrl">
 	<header class="page-header"><h1>Index</h1></header>
 	<br><hr>
 	<div class="row">
 		<div class="rol-sm-3">
-			<superman strength>动感超人---力量</superman>
+            <div super>
+                <superman strength>动感超人---力量</superman>
+            </div>
+
 		</div>
 		<div class="rol-sm-3">
-			<superman strength speed>动感超人2---力量+速度</superman>
+            <div super>
+                <superman strength speed>动感超人2---力量+速度</superman>
+            </div>
+
 		</div>
-		<div class="rol-sm-3">
-			<superman strength speed light>动感超人3---力量+速度+发光</superman>
-		</div>
+        <div class="rol-sm-3">
+            <superman strength speed light>动感超人3---力量+速度+发光</superman>
+        </div>
 	</div>
     <hr><br><br><br>
 <script>
 	angular.module("myApp",[])
 			.directive("superman",function(){
-				return {
-					scope:{},
-					restrict:"AE",
-					controlller:function ($scope) {
-						$scope.abilities = [];
-						this.addStrength = function () {
-							$scope.abilities.push("strength");
-						};
-						this.addSpeed = function () {
-							$scope.abilities.push("speed");
-						};
-						this.addLight = function () {
-							$scope.abilities.push("light");
-						};
-					},
-					link:function ($scop,$element,$attrs) {
-						$element.addClass("btn btn-primary");
-						$element.bind("mouseenter",function () {
-							console.log($scope.abilities);
-						})
-					}
-				}
-			})
+                return{
+                    scope:{},
+                    restrict:'AE',
+                    controller:function($scope){
+                        $scope.abilities=[];
+                        this.addStrength=function(){
+                            $scope.abilities.push("strength");
+                        };
+                        this.addSpeed=function(){
+                            $scope.abilities.push("speed");
+                        };
+                        this.addLight=function(){
+                            $scope.abilities.push("light");
+                        };
+                    },
+                    link:function(scope,element,attrs){
+                        element.addClass('btn btn-primary');
+                        element.bind("mouseenter",function(){
+                            console.log(scope.abilities);
+                        })
+                    }
+                }
+            })
 			.directive("strength",function () {
-				return {
-					required:'^superman',
-					link:function ($scope ,$element, $attrs, supermanCtrl) {
-                        console.log(supermanCtrl);
-						supermanCtrl.addStrength();
-					}
-				}
-			})
+                return{
+                    require:'^superman',
+                    link: function (scope, element, attrs, supermanCtrl) {
+                        supermanCtrl.addStrength();
+                    }
+                }
+            })
 			.directive("speed",function () {
 				return {
-					required:'^superman',
+					require:'^superman',
 					link:function ($scope ,$element, $attrs, supermanCtrl) {
-						supermanCtrl.addSpeed();
+                        supermanCtrl.addSpeed();
 					}
 				}
 			})
 			.directive("light",function () {
 				return {
-					required:'^superman',
+					require:'^superman',
 					link:function ($scope ,$element, $attrs, supermanCtrl) {
-						supermanCtrl.addLight();
+
 					}
 				}
 			})
+            .controller("myCtrl",function ($scope) {
+
+            })
 </script>
 </body>
 </html>
