@@ -3,6 +3,8 @@ $(function () {
     var arr = [];
     var score = 0;
 
+    newGame();
+
     function layOut() {
         for (var i = 0; i < 16; i++) {
             $('<li></li>').appendTo('ul');
@@ -22,10 +24,11 @@ $(function () {
     //2.1获取当前所有数字方块位置的数组
     function gridArr() {
         var arrNum = [];
-        for (var i = 0; i < $('.number').length; i++) {
+        var oNumbers = $('.number');
+        for (var i = 0; i < oNumbers.length; i++) {
             arrNum.push({
-                "l": Math.round($('.number').eq(i).position().left),
-                "t": Math.round($('.number').eq(i).position().top)
+                "l": Math.round(oNumbers.eq(i).position().left),
+                "t": Math.round(oNumbers.eq(i).position().top)
             });
         }
         return arrNum;
@@ -61,16 +64,25 @@ $(function () {
     }
 
 //获取同行或列的方块元素,并按升序排列
-//	返回一个数组，数组为全部行（列）数字方块元素的集合
+/*	返回一个数组，数组为全部行（列）数字方块元素的集合
+*   arr = [
+*           [1,2,3,4],
+*           [1,2,3,4],
+*           [1,2,3,4],
+*           [1,2,3,4],
+*       ];
+
+*/
     function getPosition(dir) {
         var arr = [];
+        var oNumbers = $('.number');
         var dir2 = dir == "left" ? "top" : "left";
         for (var j = 0; j < 4; j++) {
             var arr1 = [],
                 arr2 = [];
-            for (var i = 0; i < $('.number').length; i++) {
-                if (Math.round($('.number').eq(i).position()[dir]) == j * 55) {
-                    arr1.push($('.number').eq(i));
+            for (var i = 0; i < oNumbers.length; i++) {
+                if (Math.round(oNumbers.eq(i).position()[dir]) == j * 55) {
+                    arr1.push(oNumbers.eq(i));
                 }
             }
 
@@ -243,28 +255,28 @@ $(function () {
         }
     });
 
-    function over(arr, boolean) {
+    //2种方法，1、取出所有值相等的元素，判断坐标有一个相等的情况下间距在50内，
+    //         2、对16个方块循环，看周围是否有相同的值
+    function over(arr) {
         for (var i = 0; i < arr.length; i++) {
             for (var j = 0; j < arr[i].length - 1; j++) {
                 if (arr[i][j].html() == arr[i][j + 1].html()) {
-                    boolean = false;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     function gameOver() {
         if ($('.number').length >= 16) {
-            if (!needcreate) {
                 var arr1 = getPosition("left");
                 var arr2 = getPosition("top");
-                var gameover = true;
-                over(arr1, gameover);
-                over(arr2, gameover);
-                alert("Game Over");
-                window.location.reload();
-                newGame();
-            }
+                if (!(over(arr1) || over(arr2))) {
+                    alert("Game Over");
+                    window.location.reload();
+                    newGame();
+                }
         }
 
     }
@@ -275,13 +287,12 @@ $(function () {
         createGrid();
     }
 
-    newGame();
 
     $('#btn1').click(function () {
         window.location.reload();
         setTimeout(function () {
             newGame();
-        }, 300)
+        }, 200)
     });
 
 });
