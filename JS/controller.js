@@ -3,6 +3,7 @@ $(function () {
     var arr = [];
     var score = 0;
 
+    layOut();
     newGame();
 
     function layOut() {
@@ -273,7 +274,6 @@ $(function () {
             var arr2 = getPosition("top");
             if (!(over(arr1) || over(arr2))) {
                 alert("Game Over");
-                window.location.reload();
                 newGame();
             }
         }
@@ -281,17 +281,13 @@ $(function () {
     }
 
     function newGame() {
-        layOut();
+        $(".number").remove();
         createGrid();
         createGrid();
     }
 
-
     $('#btn1').click(function () {
-        window.location.reload();
-        setTimeout(function () {
-            newGame();
-        }, 200)
+        newGame();
     });
 
 });
