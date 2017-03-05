@@ -3,6 +3,7 @@ $(function () {
     var arr = [];
     var score = 0;
 
+    layOut();
     newGame();
 
     function layOut() {
@@ -20,7 +21,7 @@ $(function () {
         $('li').css({"position": "absolute"});
     }
 
-//2.获取不重复的随机位置	
+//2.获取不重复的随机位置
     //2.1获取当前所有数字方块位置的数组
     function gridArr() {
         var arrNum = [];
@@ -36,7 +37,7 @@ $(function () {
 
     //2.2返回一个随机的空位置
     function randomArray() {
-        //复制一份数组arr，防止arr被修改	
+        //复制一份数组arr，防止arr被修改
         var arr2 = arr.concat([]);
         var arrNum = gridArr();
         //2个数组去重后，随机返回剩余中的一个位置
@@ -273,7 +274,6 @@ $(function () {
             var arr2 = getPosition("top");
             if (!(over(arr1) || over(arr2))) {
                 alert("Game Over");
-                window.location.reload();
                 newGame();
             }
         }
@@ -281,17 +281,15 @@ $(function () {
     }
 
     function newGame() {
-        layOut();
+        $(".number").remove();
+        score = 0;
+        $("#score").html(score);
         createGrid();
         createGrid();
     }
 
-
     $('#btn1').click(function () {
-        window.location.reload();
-        setTimeout(function () {
-            newGame();
-        }, 200)
+        newGame();
     });
 
 });
