@@ -64,15 +64,15 @@ $(function () {
     }
 
 //获取同行或列的方块元素,并按升序排列
-/*	返回一个数组，数组为全部行（列）数字方块元素的集合
-*   arr = [
-*           [1,2,3,4],
-*           [1,2,3,4],
-*           [1,2,3,4],
-*           [1,2,3,4],
-*       ];
+    /*	返回一个数组，数组为全部行（列）数字方块元素的集合
+     *   arr = [
+     *           [1,2,3,4],
+     *           [1,2,3,4],
+     *           [1,2,3,4],
+     *           [1,2,3,4],
+     *       ];
 
-*/
+     */
     function getPosition(dir) {
         var arr = [];
         var oNumbers = $('.number');
@@ -216,7 +216,6 @@ $(function () {
 
     function cGrid() {
         var a = 0;
-        console.log(ended + "," + needcreate);
         var timer = setInterval(function () {
             a += 30;
             if (a > 400) {
@@ -270,13 +269,13 @@ $(function () {
 
     function gameOver() {
         if ($('.number').length >= 16) {
-                var arr1 = getPosition("left");
-                var arr2 = getPosition("top");
-                if (!(over(arr1) || over(arr2))) {
-                    alert("Game Over");
-                    window.location.reload();
-                    newGame();
-                }
+            var arr1 = getPosition("left");
+            var arr2 = getPosition("top");
+            if (!(over(arr1) || over(arr2))) {
+                alert("Game Over");
+                window.location.reload();
+                newGame();
+            }
         }
 
     }
