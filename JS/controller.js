@@ -1,11 +1,11 @@
 $(function () {
-//  1.自动生成绝对定位布局
     var arr = [];
     var score = 0;
 
     layOut();
     newGame();
 
+//  1.绝对定位布局
     function layOut() {
         for (var i = 0; i < 16; i++) {
             $('<li></li>').appendTo('ul');
