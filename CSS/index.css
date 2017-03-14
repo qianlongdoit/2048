@@ -92,3 +92,10 @@ li {
     margin: 0 auto;
     width: 100px;
 }
+pre{
+    width: 650px;
+    margin: 0 auto;
+    background: #eee;
+    font-size: 14px;
+    padding: 10px;
+}
